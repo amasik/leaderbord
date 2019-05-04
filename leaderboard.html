@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top performances </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet"> 
+    <link rel="stylesheet" href="style3.css">
+  </head>
+
+  <body>
+
+		<header>
+		<h1> TOP <strong>20</strong> </h1> 
+		<!-- <h2>Retrouvez les meilleurs performances des joueurs du mois d'août !</h2> -->
+		</header>
+	     
+<section>
+	<table>	
+	<tr>
+  <th class="col-1">Rank</th>
+  <th class="col-2">Pseudo </th>
+  <th class="col-3">Champion </th>
+  <th class="col-4">Score </th>
+	</tr> 
+	</table>
+</section>
+	  
+<div id="loader"></div> 
+    
+	
+	<script>
+	
+   
+var header = document.querySelector('header');
+var section = document.querySelector('section');
+var requestURL = 'https://********/leaderboard/12345678/12345678';
+var request = new XMLHttpRequest();
+request.addEventListener("load", transferComplete, false);
+request.open('GET', requestURL);
+request.responseType = 'text';
+request.send();
+request.onload = function() {
+   // addElement(JSON.parse(request.response))
+    leader(JSON.parse(request.response));
+}
+
+function leader(jsonObj) {
+ 
+    for(var i = 0; i < jsonObj.length; i++) {
+        if(i===0){
+            var myArticle = document.createElement('article1');
+
+        }
+        else if(i===1){
+            var myArticle = document.createElement('article2');
+
+        }
+        else if(i===2){
+            var myArticle = document.createElement('article3');
+
+        }
+        else{
+            var myArticle = document.createElement('article');
+        }
+        var Summoner = document.createElement('p');
+        var Rank = document.createElement('p');
+        var Score = document.createElement('C');
+        var Champ = document.createElement('p');
+		var MyImage = document.createElement('div');
+		var image = new Image();
+		
+		
+        Rank.textContent = i+1;
+        Summoner.textContent = jsonObj[i].Summoner;
+        
+		image.src = jsonObj[i].ChampionImg;	
+	
+		
+        Champ.textContent = jsonObj[i].ChampionName;
+        Score.textContent = (jsonObj[i].Score).toFixed(1);
+        
+        
+		myArticle.appendChild(Rank);   
+        myArticle.appendChild(Summoner);
+
+		MyImage.appendChild(image);
+        myArticle.appendChild(MyImage);
+        myArticle.appendChild(Score);
+        
+        myArticle.onclick=function(){alert("Alert:"+i)}
+        //section.appendChild(myArticle);
+        var currentDiv = document.getElementById(`article${i+1}`); 
+        section.insertBefore(myArticle, currentDiv);
+
+
+    }	
+
+}
+function addElement (jsonObj) { 
+  // crée un nouvel élément div 
+    for(var i = 0; i < jsonObj.length; i++) {
+        if(i===0){
+            var myArticle = document.createElement('article1');
+
+        }
+        else if(i===1){
+            var myArticle = document.createElement('article2');
+
+        }
+        else if(i===2){
+            var myArticle = document.createElement('article3');
+
+        }
+        else{
+            var myArticle = document.createElement('article');
+        }
+        var Summoner = document.createElement('p');
+        var Rank = document.createElement('p');
+        var Score = document.createElement('C');
+        var Champ = document.createElement('p');
+		var MyImage = document.createElement('div');
+		var image = new Image();
+		
+		
+        Rank.textContent = i+1;
+        Summoner.textContent = jsonObj[i].Summoner;
+        
+		image.src = jsonObj[i].ChampionImg;	
+	
+		
+        Champ.textContent = jsonObj[i].ChampionName;
+        Score.textContent = (jsonObj[i].Score).toFixed(1);
+        
+        
+		myArticle.appendChild(Rank);   
+        myArticle.appendChild(Summoner);
+
+		MyImage.appendChild(image);
+        myArticle.appendChild(MyImage);
+        myArticle.appendChild(Score);
+
+        // ajoute le nouvel élément créé et son contenu dans le DOM 
+        var currentDiv = document.getElementById(`article${i+1}`); 
+        document.body.insertBefore(myArticle, currentDiv);
+    }
+    
+}
+
+function transferComplete(evt) {
+    document.getElementById("loader").style.display = "none"; //loader correspond à ton css
+
+}
+function alerted(name,i){
+    alert(`Oui,${i} c'est bien: ${name}`);
+}
+    </script>
+
+
+  </body>
+</html>
+
+  <!-- https://developer.mozilla.org/fr/docs/Learn/JavaScript/Objects/JSON pour le transfert d'info json-->
